@@ -25,7 +25,7 @@ pipeline {
         stage('Show App Logs') {
             steps {
                 echo "Showing logs from app container..."
-                sh 'docker logs -f demo & sleep 10'
+                sh '(docker logs -f demo &) ; sleep 8'
             }
         }
     }
