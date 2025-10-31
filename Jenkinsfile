@@ -31,7 +31,7 @@ pipeline {
     }
 
     post {
-        always {
+        success {
             echo 'Cleaning up old container...'
             sh 'docker stop demo || true'
             sh 'docker rm demo || true'
