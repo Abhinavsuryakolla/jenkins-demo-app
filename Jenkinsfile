@@ -10,17 +10,22 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'docker build -t jenkins-demo-app .'
-                }
+                sh 'docker build -t jenkins-demo-app .'
             }
         }
 
         stage('Run Container') {
             steps {
-                script {
-                    sh 'docker run -d -p 3000:3000 --name demo jenkins-demo-app'
-                }
+                sh 'docker stop demo || true'
+                sh 'docker rm demo || true'
+                sh 'docker run -d -p 3000:3000 --name demo jenkins-demo-app'
+            }
+        }
+
+        stage('Show App Logs') {
+            steps {
+                echo "Showing logs from app container..."
+                sh 'docker logs -f demo & sleep 10'
             }
         }
     }
